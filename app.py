@@ -37,9 +37,11 @@ def shipping_fee(subtotal):
         return 5.99
 
 
-st.title("Bright Bakery Interactive Order Calculator")
-st.caption("A class practice app that calculates a quote.")
-st.info("Starter file loaded. Complete the TODO sections before submitting.")
+# Temporary function checks
+st.write("Delivery for 34.99:", shipping_fee(34.99))
+st.write("Delivery for 35.00:", shipping_fee(35.00))
+st.write("Items after discount for 49.99:", apply_discount(49.99))
+st.write("Items after discount for 50.00:", apply_discount(50.00))
 
 # TODO 3 - Step 5: Put the required controls in a sidebar.
 # Collect customer_name, product, quantity, fulfillment and show_chart.
