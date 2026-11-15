@@ -52,21 +52,52 @@ with st.sidebar:
 # TODO 4 - Step 6: Calculate unit_price, subtotal and discounted_subtotal.
 # Call your functions. Calculate discount_amount, delivery_fee and total.
 # Pickup costs 0; Delivery uses shipping_fee(subtotal).
-
-
+unit_price = menu[product]
+subtotal = unit_price * quantity
+discounted_subtotal = apply_discount(subtotal)
+discount_amount = round(subtotal - discounted_subtotal, 2)
+if fulfillment == "Pickup":
+    delivery_fee = 0.0
+else:
+    delivery_fee = shipping_fee(subtotal)
+total = round(discounted_subtotal + delivery_fee, 2)
 # TODO 5 - Step 7: Show the quote in two columns with dollars to 2 decimals.
 # Include product, quantity, unit price, fulfillment, subtotal, discount,
 # delivery fee and final total. Keep this outside the button block.
-
+st.subheader("Current quote")
+col1, col2 = st.columns(2)
+with col1:
+    st.write(f"Product: {product}")
+    st.write(f"Quantity: {quantity}")
+    st.write(f"Unit price: ${unit_price:.2f}")
+    st.write(f"Fulfillment: {fulfillment}")
+with col2:
+    st.write(f"Original subtotal: ${subtotal:.2f}")
+    st.write(f"Discount: ${discount_amount:.2f}")
+    st.write(f"Delivery fee: ${delivery_fee:.2f}")
+    st.metric("Final total", f"${total:.2f}")
 
 # TODO 6 - Step 8: Build and display the menu table from the menu dictionary.
 # Add a clearly labeled fictional sample-sales chart controlled by show_chart.
-
-
+st.subheader("Bakery menu")
+menu_data = {
+    "Product": list(menu.keys()),
+    "Price ($)": list(menu.values())
+}
+st.dataframe(menu_data, hide_index=True)
+if show_chart:
+    st.subheader("Sample sales")
+    st.caption("These are fictional sales for practice.")
+    st.bar_chart(sample_sales, x="Product", y="Units sold", sort=False)
 # TODO 7 - Step 9: Add a Check quote button.
 # Warn if customer_name is blank or spaces only. Otherwise show a check message.
 # Do not claim that an order was saved, submitted or paid for.
-
+if st.button("Check quote"):
+    clean_name = customer_name.strip()
+    if clean_name == "":
+        st.warning("Please enter your name or nickname.")
+    else:
+        st.success(f"Quote checked for {clean_name}. This is only a practice app. No order was saved or paid for.")
 
 # TODO 8: Test, add your own comments and remove the starter info message.
 # Do not upload your submission report or screenshots to this public repository.
