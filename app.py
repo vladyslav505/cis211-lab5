@@ -37,17 +37,18 @@ def shipping_fee(subtotal):
         return 5.99
 
 
-# Temporary function checks
-st.write("Delivery for 34.99:", shipping_fee(34.99))
-st.write("Delivery for 35.00:", shipping_fee(35.00))
-st.write("Items after discount for 49.99:", apply_discount(49.99))
-st.write("Items after discount for 50.00:", apply_discount(50.00))
-
+st.title("Bright Bakery Interactive Order Calculator")
+st.caption("A class practice app that calculates a quote.")
 # TODO 3 - Step 5: Put the required controls in a sidebar.
 # Collect customer_name, product, quantity, fulfillment and show_chart.
 # Keep quantity an integer from 1 through 30.
-
-
+with st.sidebar:
+    st.header("Order options")
+    customer_name = st.text_input("Customer name or nickname")
+    product = st.selectbox("Product", list(menu.keys()))
+    quantity = st.number_input("Quantity", min_value=1, max_value=30, value=1, step=1)
+    fulfillment = st.selectbox("Fulfillment", ["Pickup", "Delivery"])
+    show_chart = st.checkbox("Show sample sales chart", value=True)
 # TODO 4 - Step 6: Calculate unit_price, subtotal and discounted_subtotal.
 # Call your functions. Calculate discount_amount, delivery_fee and total.
 # Pickup costs 0; Delivery uses shipping_fee(subtotal).
